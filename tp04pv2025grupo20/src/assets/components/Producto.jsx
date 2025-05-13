@@ -1,8 +1,8 @@
 import { useState,useEffect } from "react";
-import Formulario from  './components/Formulario.jsx';
-import Lista from './components/Lista.jsx';
+import Formulario from  './ProductForm.jsx';
+import Lista from './ProductList.jsx';
 
-function App2(){
+function Producto(){
     const[productos, setProductos] = useState([]);
 
 useEffect(() => {
@@ -22,4 +22,4 @@ const agregarProducto = (producto) => {
   );
 }
 
-export default App2;
+export default Producto;
