@@ -40,3 +40,31 @@
 .read-the-docs {
   color: #888;
 }
+.product-list {
+  padding: 20px; 
+  background-color: #f9f9f9; 
+  border-radius: 12px; /* Bordes redondeados */
+  max-width: 800px; /* Ancho del contenedor */
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid #ddd; 
+  transition: box-shadow 0.3s ease; /* Animación */
+}
+.product-list h2 {
+  font-size: 24px;
+  margin-bottom: 20px; 
+  color: #333; 
+  text-align: center;
+}
+.product-list:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Efecto de sombra */
+}
+.product-list ul {
+  list-style: none; /* Elimina los puntos de la lista */
+  padding: 0; 
+  margin: 0;
+  display: grid; /*organiza los elementos */
+  gap: 15px;
+  animation: fadeIn 0.5s ease-in-out; /* Animación al cargar la lista*/
+}
