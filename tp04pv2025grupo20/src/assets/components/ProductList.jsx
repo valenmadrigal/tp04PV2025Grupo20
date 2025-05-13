@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductItem from './ProductItem';
+import './App.css';
 //subiendo 1,2
 const ProductList = ({ products, onEdit, onDelete }) => {
   return (
