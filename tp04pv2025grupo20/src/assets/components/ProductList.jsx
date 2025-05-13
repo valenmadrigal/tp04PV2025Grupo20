@@ -1,6 +1,6 @@
 import React from 'react';
-import ProductItem from './ProductItem';
-import './App.css';
+// import ProductItem from './ProductItem';
+// import './App.css';
 //subiendo 1,2
 const ProductList = ({ products, onEdit, onDelete }) => {
   return (
@@ -20,4 +20,4 @@ const ProductList = ({ products, onEdit, onDelete }) => {
   );
 };
 
-export default ProductList;
+export default Lista;
