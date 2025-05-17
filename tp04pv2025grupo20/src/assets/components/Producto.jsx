@@ -1,23 +1,26 @@
-import { useState,useEffect } from "react";
-import Formulario from  './ProductForm.jsx';
-import Lista from './ProductList.jsx';
+// import { useState,useEffect } from "react";
+import ProductForm from  './ProductForm.jsx';
+// import ProducItem from  './ProductItem.jsx';
+// import SearchBar from  './SearchBar.jsx';
+// import ProductList from  './ProductList.jsx';
+
 
 function Producto(){
-    const[productos, setProductos] = useState([]);
+//     const[productos, setProductos] = useState([]);
 
-useEffect(() => {
-    console.log("productos actualizados", productos);
+// useEffect(() => {
+//     console.log("productos actualizados", productos);
     
-},[productos]);
+// },[productos]);
 
-const agregarProducto = (producto) => {
-  setProductos(prev => [...prev, producto]);
-};
+// const agregarProducto = (producto) => {
+//   setProductos(prev => [...prev, producto]);
+// };
   return (
     <div className="container">
       <h1>Gestión de Productos</h1>
-      <Formulario onAgregar={agregarProducto} />
-      <Lista productos={productos} />
+      <ProductForm />
+      {/* <Lista productos={productos} /> */}
     </div>
   );
 }
