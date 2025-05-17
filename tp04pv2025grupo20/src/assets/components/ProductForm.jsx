@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import '../css/productForm.css'
 //AGREGAR , MODIFICAR
-function ProductForm  ()  {
-  const [products, setProducts] = useState([]);
+ function ProductForm({setProductos , productos}) {
   const [editingProduct, setEditingProduct] = useState(null);
   const [descripcion, setDescripcion] = useState('');
   const [precioUnitario, setPrecioUnitario] = useState('');
   const [descuento, setDescuento] = useState('');
   const [stock, setStock] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
 //Una vez, después de que el componente ProductForm se renderice por primera vez.
 //En cada renderizado posterior del componente solo si el array products ha sido modificado 
 // (es decir, se ha creado un nuevo array products a través de setProducts). Esto ocurrirá después de agregar, editar o eliminar un producto
-  useEffect(() => {
-   alert('La lista de productos ha cambiado:', products);
-      console.log('La lista de productos ha cambiado:', products);
-  }, [products]);
+  // useEffect(() => {
+  //  alert('La lista de productos ha cambiado:', products);
+  //     console.log('La lista de productos ha cambiado:', products);
+  // }, [productos]);
 
   //CALCULA EL DESCUENTO
   const calcularPrecioConDescuento = (precio, descuento) => {
@@ -23,7 +21,7 @@ function ProductForm  ()  {
       return 0;
     }
     return precio * (1 - descuento / 100);
-  };
+  }
 // actualizar el estado correspondiente cada vez que el usuario escribe algo en alguno de los campos del formulario 
 // (Descripción, Precio Unitario, Descuento, Stock).
   const handleInputChange = (event) => {
@@ -63,28 +61,28 @@ function ProductForm  ()  {
       descuento: parseFloat(descuento),
       precioConDescuento: calcularPrecioConDescuento(parseFloat(precioUnitario), parseFloat(descuento)),
       stock: parseInt(stock),
-      
+       show: true, //VALOR AGREGADO A CADA PRODUCTO AL AGREGARLO
     };
     //se actualiza el estado que contiene la lista de productos (products).
     //Se utiliza el operador spread (...) para crear una nueva copia del array products existente. 
     // Luego, se agrega el nuevoProducto al final de esta nueva copia.
-    setProducts([...products, nuevoProducto]);//SE RENDERIZA POR EL SetProducts
+    setProductos([...productos, nuevoProducto]);//SE RENDERIZA POR EL SetProducts
     setDescripcion('');//se limpia todas los imputs
     setPrecioUnitario('');
     setDescuento('');
     setStock('');
-  }, [descripcion, precioUnitario, descuento, stock, products, calcularPrecioConDescuento]);
+  }, [descripcion, precioUnitario, descuento, stock, productos, calcularPrecioConDescuento]);
 
 //
-//SE EJECUTA AL hacer CLICK en el botón "Editar" de un producto específico en la lista de productos.
-  const iniciarEdicion = useCallback((producto) => {
-    setEditingProduct(producto);
-    setDescripcion(producto.descripcion);
-    setPrecioUnitario(producto.precioUnitario);
-    setDescuento(producto.descuento);
-    setStock(producto.stock);
+// //SE EJECUTA AL hacer CLICK en el botón "Editar" de un producto específico en la lista de productos.
+//   const iniciarEdicion = useCallback((producto) => {
+//     setEditingProduct(producto);
+//     setDescripcion(producto.descripcion);
+//     setPrecioUnitario(producto.precioUnitario);
+//     setDescuento(producto.descuento);
+//     setStock(producto.stock);
     
-  }, []);
+//   }, []);
 
 
   //GUARDA LA EDICION
@@ -95,7 +93,7 @@ function ProductForm  ()  {
       return;
     }
     // SE INCLUYE DE NUEVO EL PRODUCTO MODIFICADO 
-    const nuevosProductos = products.map((producto) =>
+    const nuevosProductos = productos.map((producto) =>
       //MANTENIENDO IGUAL EL ID
       producto.id === editingProduct.id
         ? {
@@ -109,34 +107,13 @@ function ProductForm  ()  {
         : producto
     );
     // SE SETEAN LOS IMPUTS A VACIO Y SE VUELVE A RENDERIZAR
-    setProducts(nuevosProductos);
+    setProductos(nuevosProductos);
     setEditingProduct(null);
     setDescripcion('');
     setPrecioUnitario('');
     setDescuento('');
     setStock('');
-  }, [editingProduct, descripcion, precioUnitario, descuento, stock, products, calcularPrecioConDescuento]);
-//
-  //ELIMINAR PRODUCTO
-  // const eliminarProducto = useCallback((id) => {
-  //   const nuevosProductos = products.filter((producto) => producto.id !== id);
-  //   setProducts(nuevosProductos);
-  // }, [products]);
-
-
-  //CUANDO SE AACTUALIZA EL ESTADO, SE VUELVE A RENDERIZAR
-  // const handleSearchChange = (event) => {
-  //   setSearchTerm(event.target.value);
-  // };
-
-
-  //se ejecuta nuevamente, utilizando el nuevo valor de searchTerm para filtrar la lista de productos 
-  // y mostrar solo aquellos cuya descripción incluye el string q se va ingresando
-  // const productosFiltrados = useMemo(() => {
-  //   return products.filter((producto) =>
-  //     producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  // }, [products, searchTerm]);
+  }, [editingProduct, descripcion, precioUnitario, descuento, stock, productos, calcularPrecioConDescuento]);
 
 
 
@@ -196,28 +173,7 @@ function ProductForm  ()  {
           </button>
         )}
       </form>
-{/* <div className="product-list-container" >
-      <h2>Lista de Productos</h2>
-      <div>
-        <label htmlFor="buscar">Buscar Producto:</label>
-        <input
-          type="text"
-          id="buscar"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          placeholder="Ingrese descripción"
-        />
-      </div>
-      <ul>
-        {productosFiltrados.map((producto) => (
-          <li key={producto.id}>
-            {producto.descripcion} - Precio: ${producto.precioUnitario} - Descuento: {producto.descuento}% - Precio con Descuento: ${producto.precioConDescuento.toFixed(2)} - Stock: {producto.stock}
-            <button onClick={() => iniciarEdicion(producto)}>Editar</button>
-            <button onClick={() => eliminarProducto(producto.id)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
-    </div> */}
+
     </div>
   );
 };

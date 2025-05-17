@@ -1,36 +1,44 @@
 
 // Para representar cada producto individual.
+import { useCallback } from "react";
 
 
-function ProductItem (props) {
+function ProductItem({ product, productos, setProductos }) {
 
 const eliminarProducto = useCallback((id) => {
-    const nuevosProductos = products.filter((producto) => producto.id !== id);
-    setProducts(nuevosProductos);
-  }, [products]);
+    const productsSinElElementoConId = productos.map((prod) => {
+      if (prod.id === id) {
+        return { ...prod, show: false };
+      } else {
+        return prod;
+      }
+    });
+    setProductos(productsSinElElementoConId);
+  }, [productos, setProductos]);
 
-
-  //CUANDO SE AACTUALIZA EL ESTADO, SE VUELVE A RENDERIZAR
-  // const handleSearchChange = (event) => {
-  //   setSearchTerm(event.target.value);
-
-     //CALCULA EL DESCUENTO
-  // const calcularPrecioConDescuento = (precio, descuento) => {
-  //   if (!precio || !descuento) {
-  //     return 0;
-  //   }
-  //   return precio * (1 - descuento / 100);
-  // };
+  //SE EJECUTA AL hacer CLICK en el botón "Editar" de un producto específico en la lista de productos.
+    const iniciarEdicion = useCallback((producto) => {
+      setEditingProduct(producto);
+      setDescripcion(producto.descripcion);
+      setPrecioUnitario(producto.precioUnitario);
+      setDescuento(producto.descuento);
+      setStock(producto.stock);
+      
+    }, [product]);
+  
+  
+  
 return (
 <div> 
     
-            {producto.descripcion} - Precio: ${producto.precioUnitario} - Descuento: {producto.descuento}% - Precio con Descuento: ${producto.precioConDescuento.toFixed(2)} - Stock: {producto.stock}
-            <button onClick={() => iniciarEdicion(producto)}>Editar</button>
-            <button onClick={() => eliminarProducto(producto.id)}>Eliminar</button>
-          
+        {product.descripcion} - Precio: ${product.precioUnitario} - Descuento: {product.descuento}% - Precio con Descuento: ${product.precioConDescuento.toFixed(2)} - Stock: {product.stock}
+
+
+         <button onClick={() => iniciarEdicion(product)}>Editar</button>
+      <button onClick={() => eliminarProducto(product.id)}>Eliminar</button> 
 </div>
 
-);
+);s
 
 
 
