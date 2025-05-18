@@ -1,0 +1,24 @@
+
+.contenedor-principal {
+  background-color: rgba(176, 150, 150, 0.8); /* Fondo tenue grisáceo con opacidad */
+  padding: 30px;
+  border-radius: 15px; /* Bordes redondeados para el contenedor */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sutil sombra para resaltado */
+  text-align: center;
+}
+
+.titulo {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Letra redondeada (fuente común) */
+  color: #333;
+  /* Subrayado ondulado y resaltado */
+  margin-bottom: 20px;
+  font-size: 2.5em; /* Tamaño del título */
+}
+
+.contenedor-principal h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Misma fuente para consistencia */
+  color: #555;
+  font-size: 1.8em;
+  margin-bottom: 15px;
+   text-decoration: underline double #33383e;
+}

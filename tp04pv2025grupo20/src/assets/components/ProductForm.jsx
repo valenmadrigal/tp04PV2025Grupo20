@@ -3,7 +3,8 @@ import '../css/productForm.css'
 //AGREGAR , MODIFICAR
  function ProductForm({setProductos , productos}) {
   const [editingProduct, setEditingProduct] = useState(null);
-  const [descripcion, setDescripcion] = useState('');
+  const [nombre, setNombre] = useState('');
+   const [marca, setMarca] = useState('');
   const [precioUnitario, setPrecioUnitario] = useState('');
   const [descuento, setDescuento] = useState('');
   const [stock, setStock] = useState('');
@@ -29,8 +30,11 @@ import '../css/productForm.css'
     //de acuerdo al name busca lo que debe actualizar
     // por value cambia su valor
     switch (name) {
-      case 'descripcion':
-        setDescripcion(value);
+      case 'nombre':
+        setNombre(value);
+        break;
+        case 'marca':
+        setMarca(value);
         break;
       case 'precioUnitario':
         setPrecioUnitario(value ? parseFloat(value) : '');
@@ -48,30 +52,31 @@ import '../css/productForm.css'
 
   const agregarProducto = useCallback(() => {
     //Validar que todos los campos requeridos estén llenos.
-    if (!descripcion || !precioUnitario || descuento === '' || stock === '') {
+    if (!nombre || !marca || !precioUnitario || descuento === '' || stock === '') {
       alert('Por favor, completa todos los campos.');
       return;
     }
     //Crear un nuevo objeto de producto con los datos del formulario,
     //  generando un id único y calculando el precio con descuento.
-    const nuevoProducto = {
-      id: Date.now(),
-      descripcion,
+       const nuevoProductoData = {
+      nombre,
+      marca,
       precioUnitario: parseFloat(precioUnitario),
       descuento: parseFloat(descuento),
       precioConDescuento: calcularPrecioConDescuento(parseFloat(precioUnitario), parseFloat(descuento)),
       stock: parseInt(stock),
-       show: true, //VALOR AGREGADO A CADA PRODUCTO AL AGREGARLO
     };
+
     //se actualiza el estado que contiene la lista de productos (products).
     //Se utiliza el operador spread (...) para crear una nueva copia del array products existente. 
     // Luego, se agrega el nuevoProducto al final de esta nueva copia.
-    setProductos([...productos, nuevoProducto]);//SE RENDERIZA POR EL SetProducts
-    setDescripcion('');//se limpia todas los imputs
+   setProductos(nuevoProductoData); // Llama a la función que recibe del padre
+    setNombre('');
+    setMarca('');
     setPrecioUnitario('');
     setDescuento('');
     setStock('');
-  }, [descripcion, precioUnitario, descuento, stock, productos, calcularPrecioConDescuento]);
+  }, [nombre, marca, precioUnitario, descuento, stock, calcularPrecioConDescuento, setProductos]);
 
 //
 // //SE EJECUTA AL hacer CLICK en el botón "Editar" de un producto específico en la lista de productos.
@@ -88,7 +93,7 @@ import '../css/productForm.css'
   //GUARDA LA EDICION
   const guardarEdicion = useCallback(() => {
     //VERIFICA Q NO ESTEN VACIOS
-    if (!editingProduct || !descripcion || !precioUnitario || descuento === '' || stock === '') {
+    if (!editingProduct || !nombre || !marca || !precioUnitario || descuento === '' || stock === '') {
       alert('Por favor, completa todos los campos.');
       return;
     }
@@ -98,7 +103,8 @@ import '../css/productForm.css'
       producto.id === editingProduct.id
         ? {
             ...producto,
-            descripcion,
+            nombre,
+            marca,
             precioUnitario: parseFloat(precioUnitario),
             descuento: parseFloat(descuento),
             precioConDescuento: calcularPrecioConDescuento(parseFloat(precioUnitario), parseFloat(descuento)),
@@ -109,11 +115,12 @@ import '../css/productForm.css'
     // SE SETEAN LOS IMPUTS A VACIO Y SE VUELVE A RENDERIZAR
     setProductos(nuevosProductos);
     setEditingProduct(null);
-    setDescripcion('');
+    setNombre('');
+    setMarca('');
     setPrecioUnitario('');
     setDescuento('');
     setStock('');
-  }, [editingProduct, descripcion, precioUnitario, descuento, stock, productos, calcularPrecioConDescuento]);
+  }, [editingProduct, nombre,marca, precioUnitario, descuento, stock, productos, calcularPrecioConDescuento]);
 
 
 
@@ -127,12 +134,22 @@ import '../css/productForm.css'
         }}
       >
         <div>
-          <label htmlFor="descripcion">Descripción:</label>
+          <label htmlFor="nombre">Nombre:</label>
           <input
             type="text"
-            id="descripcion"
-            name="descripcion"
-            value={descripcion}
+            id="nombre"
+            name="nombre"
+            value={nombre}
+            onChange={handleInputChange}
+          />
+        </div>
+          <div>
+          <label htmlFor="marca">Marca:</label>
+          <input
+            type="text"
+            id="marca"
+            name="marca"
+            value={marca}
             onChange={handleInputChange}
           />
         </div>
