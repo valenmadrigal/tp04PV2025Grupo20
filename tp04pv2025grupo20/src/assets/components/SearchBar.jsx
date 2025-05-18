@@ -1,7 +1,8 @@
-import ProductForm from "./ProductForm";
+
 // Para buscar productos.
 
-function SearchBar (props) {
+function SearchBar({searchTerm , setSearchTerm}) {
+  
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   }
