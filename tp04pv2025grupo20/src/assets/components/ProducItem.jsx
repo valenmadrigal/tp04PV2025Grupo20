@@ -1,11 +1,10 @@
-
 // Para representar cada producto individual.
 import { useCallback } from "react";
+import '../css/ProductItem.css'; // Importa el CSS para el item del producto
 
+function ProductItem({ product, productos, setProductos, setEditingProduct, setNombre, setMarca, setPrecioUnitario, setDescuento, setStock }) {
 
-function ProductItem({ product, productos, setProductos }) {
-
-const eliminarProducto = useCallback((id) => {
+  const eliminarProducto = useCallback((id) => {
     const productsSinElElementoConId = productos.map((prod) => {
       if (prod.id === id) {
         return { ...prod, show: false };
@@ -16,31 +15,32 @@ const eliminarProducto = useCallback((id) => {
     setProductos(productsSinElElementoConId);
   }, [productos, setProductos]);
 
-  //SE EJECUTA AL hacer CLICK en el botón "Editar" de un producto específico en la lista de productos.
-    const iniciarEdicion = useCallback((producto) => {
-      setEditingProduct(producto);
-      setDescripcion(producto.descripcion);
-      setPrecioUnitario(producto.precioUnitario);
-      setDescuento(producto.descuento);
-      setStock(producto.stock);
-      
-    }, [product]);
+  const iniciarEdicion = useCallback((producto) => {
+    setEditingProduct(producto);
+    setNombre(producto.nombre); 
+    setMarca(producto.marca);   
+    setPrecioUnitario(producto.precioUnitario);
+    setDescuento(producto.descuento);
+    setStock(producto.stock);
+
+  }, [product, setEditingProduct, setNombre, setMarca, setPrecioUnitario, setDescuento, setStock]);
+
   
-  
-  
-return (
-<div> 
-    
-        {product.descripcion} - Precio: ${product.precioUnitario} - Descuento: {product.descuento}% - Precio con Descuento: ${product.precioConDescuento.toFixed(2)} - Stock: {product.stock}
-
-
-         <button onClick={() => iniciarEdicion(product)}>Editar</button>
-      <button onClick={() => eliminarProducto(product.id)}>Eliminar</button> 
-</div>
-
-);s
-
-
-
+  return (
+    <tr className="product-table">
+      <td>{product.id}</td>
+      <td>{product.nombre}</td>
+      <td>{product.marca}</td>
+      <td>${product.precioUnitario}</td>
+      <td>{product.descuento}%</td>
+      <td>${product.precioConDescuento?.toFixed(2)}</td>
+      <td>{product.stock}</td>
+      <td className="actions">
+        <button onClick={() => iniciarEdicion(product)} className="edit-button">Editar</button>
+        <button onClick={() => eliminarProducto(product.id)} className="delete-button">Eliminar</button>
+      </td>
+    </tr>
+  );
 };
- export default ProductItem;
+
+export default ProductItem;

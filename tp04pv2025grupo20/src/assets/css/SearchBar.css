@@ -1,0 +1,67 @@
+
+.search-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.search-bar-container label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom:10px ;
+
+    font-size: 1.5em; 
+}
+
+.search-bar-container div {
+  display: flex;
+  gap: 8px;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.search-bar-container button {
+  padding: 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #eee;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+ 
+}
+
+.search-bar-container button:hover {
+  background-color: #ddd;
+}
+
+.search-bar-container button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.search-bar-container button.active:hover {
+  background-color: #0056b3;
+}
+
+.search-bar-container input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  flex-grow: 1; /* Para que el input ocupe el espacio restante */
+}
+
+.search-bar-container input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

@@ -1,55 +1,62 @@
-import React, { useMemo } from 'react';
- import ProductItem from './ProducItem';
+import React, { useMemo,useCallback } from 'react';
+import ProductItem from './ProducItem';
+import '../css/Lista.css'; // Importa el CSS para la Lista
 
 // LISTA DE PRODUCTOS
-function Lista ({ productos, searchTerm, setProductos })  {
+function Lista({ productos,
+   searchTerm,
+    setProductos,
+     setEditingProduct,
+      setNombre, setMarca,
+       setPrecioUnitario,
+        setDescuento, setStock }) {
 
-  //se ejecuta nuevamente, utilizando el nuevo valor de searchTerm para filtrar la lista de productos 
-  // y mostrar solo aquellos cuya descripción incluye el string q se va ingresando
   const productosFiltrados = useMemo(() => {
     return productos.length > 0 && productos?.filter((producto) =>
-        producto.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }, [productos, searchTerm]);
-   const productsListable = productos.length > 0 && productos.filter(prod => prod.show === true)
+      producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [productos, searchTerm]);
+
+  const productsListable = useMemo(() => {
+    return productos.length > 0 && productos.filter(prod => prod.show === true);
+  }, [productos]);
+
+  const listaDeProductos = searchTerm === "" ? productsListable : productosFiltrados;
 
   return (
-    <div className="product-list">
+    <div className="product-list-container"> {/* Contenedor para la lista */}
       <h2>Lista de Productos</h2>
-     <ul>
-
-        {searchTerm == "" ? productsListable.length > 0 && productsListable?.map((producto) => {
-          if (producto.show) {
-            return (
-              <li key={producto.id}>
-
-                <ProductItem
-                  setProductos={setProductos}
-                  productos={productos}
-                  product={producto}
-                
-                />
-
-              </li>
-            )
-          }
-
-
-        }) : (
-          productosFiltrados.map((producto) => {
-            return (
-              <li key={producto.id}>
-
-                <ProductItem
-                  product={producto}
-                
-                />
-
-              </li>
-            )
-          })
-        )}
-      </ul>
+      <table className="product-table">
+        <thead>
+          <tr>
+             <th>ID</th>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Precio</th>
+            <th>Descuento</th>
+            <th>Precio con Descuento</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {listaDeProductos.length > 0 && listaDeProductos.map((producto) => (
+            <ProductItem
+              key={producto.id}
+              product={producto}
+              productos={productos}
+              setProductos={setProductos}
+              setEditingProduct={setEditingProduct}
+              setNombre={setNombre}
+              setMarca={setMarca}
+              setPrecioUnitario={setPrecioUnitario}
+              setDescuento={setDescuento}
+              setStock={setStock}
+            />
+          ))}
+        </tbody>
+      </table>
+      {listaDeProductos.length === 0 && <p>No se encontraron productos.</p>}
     </div>
   );
 };
