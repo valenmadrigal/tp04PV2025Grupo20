@@ -1,23 +1,48 @@
-import { useState,useEffect } from "react";
-import Formulario from  './ProductForm.jsx';
+import { useState } from 'react';
+import ProductForm from './ProductForm.jsx';
+import SearchBar from './SearchBar.jsx';
 import Lista from './ProductList.jsx';
 
-function Producto(){
-    const[productos, setProductos] = useState([]);
+let nextId = 1; // Variable para rastrear el próximo ID
 
-useEffect(() => {
-    console.log("productos actualizados", productos);
-    
-},[productos]);
+function Producto() {
+  const [productos, setProductos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchBy, setSearchBy] = useState("nombre");
 
-const agregarProducto = (producto) => {
-  setProductos(prev => [...prev, producto]);
-};
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [nombre, setNombre] = useState('');
+  const [marca, setMarca] = useState('');
+  const [precioUnitario, setPrecioUnitario] = useState('');
+  const [descuento, setDescuento] = useState('');
+  const [stock, setStock] = useState('');
+  console.log(productos, "productos");
+
+  const handleAddProduct = (newProductData) => {
+    const newProductWithId = { ...newProductData, id: nextId++, show: true };
+    setProductos([...productos, newProductWithId]);
+  };
+
   return (
     <div className="container">
-      <h1>Gestión de Productos</h1>
-      <Formulario onAgregar={agregarProducto} />
-      <Lista productos={productos} />
+      <ProductForm setProductos={handleAddProduct} productos={productos} />
+      <SearchBar
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        searchBy={searchBy}
+        setSearchBy={setSearchBy}
+      />
+      <Lista
+        searchTerm={searchTerm}
+        setProductos={setProductos}
+        productos={productos}
+        setEditingProduct={setEditingProduct}
+        setNombre={setNombre}
+        setMarca={setMarca}
+        setPrecioUnitario={setPrecioUnitario}
+        setDescuento={setDescuento}
+        setStock={setStock}
+      />
     </div>
   );
 }
