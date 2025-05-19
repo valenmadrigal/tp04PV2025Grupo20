@@ -18,14 +18,34 @@ function Producto() {
   const [stock, setStock] = useState('');
   console.log(productos, "productos");
 
-  const handleAddProduct = (newProductData) => {
-    const newProductWithId = { ...newProductData, id: nextId++, show: true };
-    setProductos([...productos, newProductWithId]);
+  // Función para iniciar la edición, recibe producto y actualiza estados
+  const iniciarEdicion = (producto) => {
+    setEditingProduct(producto);
+    setNombre(producto.nombre);
+    setMarca(producto.marca);
+    setPrecioUnitario(producto.precioUnitario);
+    setDescuento(producto.descuento);
+    setStock(producto.stock);
   };
 
   return (
     <div className="container">
-      <ProductForm setProductos={handleAddProduct} productos={productos} />
+      <ProductForm 
+        setProductos={setProductos} 
+        productos={productos} 
+        editingProduct={editingProduct}
+        setEditingProduct={setEditingProduct}
+        nombre={nombre}
+        setNombre={setNombre}
+        marca={marca}
+        setMarca={setMarca}
+        precioUnitario={precioUnitario}
+        setPrecioUnitario={setPrecioUnitario}
+        descuento={descuento}
+        setDescuento={setDescuento}
+        stock={stock}
+        setStock={setStock}
+      />
       <SearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -36,12 +56,8 @@ function Producto() {
         searchTerm={searchTerm}
         setProductos={setProductos}
         productos={productos}
-        setEditingProduct={setEditingProduct}
-        setNombre={setNombre}
-        setMarca={setMarca}
-        setPrecioUnitario={setPrecioUnitario}
-        setDescuento={setDescuento}
-        setStock={setStock}
+        // Pasamos iniciarEdicion para que el botón "Editar" funcione
+        iniciarEdicion={iniciarEdicion} 
       />
     </div>
   );
