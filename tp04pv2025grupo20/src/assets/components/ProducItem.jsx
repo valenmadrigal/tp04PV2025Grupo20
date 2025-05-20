@@ -18,15 +18,7 @@ function ProductItem({ product, productos, setProductos }) {
     setProductos(productsSinElElementoConId);
   }, [productos, setProductos]);
 
-  // const iniciarEdicion = useCallback((producto) => {
-  //   setEditingProduct(producto);
-  //   setNombre(producto.nombre);
-  //   setMarca(producto.marca);
-  //   setPrecioUnitario(producto.precioUnitario);
-  //   setDescuento(producto.descuento);
-  //   setStock(producto.stock);
-
-  // }, [product, setEditingProduct, setNombre, setMarca, setPrecioUnitario, setDescuento, setStock]);
+  
   // Se puede hacer un service
   const calcularPrecioConDescuento = (precio, descuento) => {
     if (!precio || !descuento) {

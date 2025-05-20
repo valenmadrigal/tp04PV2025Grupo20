@@ -36,3 +36,17 @@ background-color: rgb(67, 108, 136);/* Puedes agregar estilos específicos para 
 .delete-button:hover {
   background-color: #c82333;
 }
+.form-edit {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 15px;
+}
+
+.form-edit label {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
