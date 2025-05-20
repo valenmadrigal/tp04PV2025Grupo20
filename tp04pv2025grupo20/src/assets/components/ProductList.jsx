@@ -3,15 +3,20 @@ import ProductItem from './ProducItem';
 import '../css/Lista.css'; // Importa el CSS para la Lista
 
 // LISTA DE PRODUCTOS
-function Lista({ productos, searchTerm, setProductos, iniciarEdicion }) {
+function Lista({ productos,
+   searchTerm,
+    setProductos,
+     setEditingProduct,
+      setNombre, setMarca,
+       setPrecioUnitario,
+        setDescuento, setStock }) {
+
   const productosFiltrados = useMemo(() => {
-    // Filtra los productos según el término de búsqueda
     return productos.length > 0 && productos?.filter((producto) =>
       producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [productos, searchTerm]);
 
-  
   const productsListable = useMemo(() => {
     return productos.length > 0 && productos.filter(prod => prod.show === true);
   }, [productos]);
@@ -41,7 +46,12 @@ function Lista({ productos, searchTerm, setProductos, iniciarEdicion }) {
               product={producto}
               productos={productos}
               setProductos={setProductos}
-              iniciarEdicion={iniciarEdicion}
+              setEditingProduct={setEditingProduct}
+              setNombre={setNombre}
+              setMarca={setMarca}
+              setPrecioUnitario={setPrecioUnitario}
+              setDescuento={setDescuento}
+              setStock={setStock}
             />
           ))}
         </tbody>
@@ -49,6 +59,6 @@ function Lista({ productos, searchTerm, setProductos, iniciarEdicion }) {
       {listaDeProductos.length === 0 && <p>No se encontraron productos.</p>}
     </div>
   );
-}
+};
 
 export default Lista;

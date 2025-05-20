@@ -1,27 +1,28 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import '../css/productForm.css'
 //AGREGAR , MODIFICAR
-function ProductForm({
-  productos,
-  setProductos,
-  editingProduct,
-  setEditingProduct,
-  nombre, setNombre,
-  marca, setMarca,
-  precioUnitario, setPrecioUnitario,
-  descuento, setDescuento,
-  stock, setStock
-}) {
+ function ProductForm({setProductos , productos}) {
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [nombre, setNombre] = useState('');
+   const [marca, setMarca] = useState('');
+  const [precioUnitario, setPrecioUnitario] = useState('');
+  const [descuento, setDescuento] = useState('');
+  const [stock, setStock] = useState('');
+//Una vez, después de que el componente ProductForm se renderice por primera vez.
+//En cada renderizado posterior del componente solo si el array products ha sido modificado 
+// (es decir, se ha creado un nuevo array products a través de setProducts). Esto ocurrirá después de agregar, editar o eliminar un producto
+  // useEffect(() => {
+  //  alert('La lista de productos ha cambiado:', products);
+  //     console.log('La lista de productos ha cambiado:', products);
+  // }, [productos]);
 
   //CALCULA EL DESCUENTO
-  
   const calcularPrecioConDescuento = (precio, descuento) => {
-  if (precio === '' || descuento === '') {
-    return 0;
+    if (!precio || !descuento) {
+      return 0;
+    }
+    return precio * (1 - descuento / 100);
   }
-  return precio * (1 - descuento / 100);
-};
-
 // actualizar el estado correspondiente cada vez que el usuario escribe algo en alguno de los campos del formulario 
 // (Descripción, Precio Unitario, Descuento, Stock).
   const handleInputChange = (event) => {
@@ -69,14 +70,25 @@ function ProductForm({
     //se actualiza el estado que contiene la lista de productos (products).
     //Se utiliza el operador spread (...) para crear una nueva copia del array products existente. 
     // Luego, se agrega el nuevoProducto al final de esta nueva copia.
-    setProductos([...productos, { ...nuevoProductoData, id: Date.now() }]); //añade un producto al final de la lista.
-   //setProductos(nuevoProductoData); // Llama a la función que recibe del padre
+   setProductos(nuevoProductoData); // Llama a la función que recibe del padre
     setNombre('');
     setMarca('');
     setPrecioUnitario('');
     setDescuento('');
     setStock('');
   }, [nombre, marca, precioUnitario, descuento, stock, calcularPrecioConDescuento, setProductos]);
+
+//
+// //SE EJECUTA AL hacer CLICK en el botón "Editar" de un producto específico en la lista de productos.
+//   const iniciarEdicion = useCallback((producto) => {
+//     setEditingProduct(producto);
+//     setDescripcion(producto.descripcion);
+//     setPrecioUnitario(producto.precioUnitario);
+//     setDescuento(producto.descuento);
+//     setStock(producto.stock);
+    
+//   }, []);
+
 
   //GUARDA LA EDICION
   const guardarEdicion = useCallback(() => {
@@ -181,5 +193,6 @@ function ProductForm({
 
     </div>
   );
-}
+};
+
 export default ProductForm;

@@ -2,7 +2,7 @@
 import { useCallback } from "react";
 import '../css/ProductItem.css'; // Importa el CSS para el item del producto
 
-function ProductItem({ product, productos, setProductos, iniciarEdicion}) {
+function ProductItem({ product, productos, setProductos, setEditingProduct, setNombre, setMarca, setPrecioUnitario, setDescuento, setStock }) {
 
   const eliminarProducto = useCallback((id) => {
     const productsSinElElementoConId = productos.map((prod) => {
@@ -15,7 +15,17 @@ function ProductItem({ product, productos, setProductos, iniciarEdicion}) {
     setProductos(productsSinElElementoConId);
   }, [productos, setProductos]);
 
+  const iniciarEdicion = useCallback((producto) => {
+    setEditingProduct(producto);
+    setNombre(producto.nombre); 
+    setMarca(producto.marca);   
+    setPrecioUnitario(producto.precioUnitario);
+    setDescuento(producto.descuento);
+    setStock(producto.stock);
 
+  }, [product, setEditingProduct, setNombre, setMarca, setPrecioUnitario, setDescuento, setStock]);
+
+  
   return (
     <tr className="product-table">
       <td>{product.id}</td>
