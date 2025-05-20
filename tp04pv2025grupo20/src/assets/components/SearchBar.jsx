@@ -1,17 +1,17 @@
 
 // Para buscar productos.
-import  '../css/SearchBar.css' 
-function SearchBar({searchTerm , setSearchTerm, searchBy, setSearchBy}) {
-  
+import '../css/SearchBar.css'
+function SearchBar({ searchTerm, setSearchTerm, searchBy, setSearchBy }) {
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   }
-    const handleSearchByChange = (by) => {
+  const handleSearchByChange = (by) => {
     setSearchBy(by);
     setSearchTerm(''); // Limpiar el término de búsqueda al cambiar el criterio
   }
 
-   return (
+  return (
     <div className="search-bar-container" >
       <label htmlFor="buscar">Buscar Producto por:</label>
       <div className='botones'>
@@ -38,4 +38,4 @@ function SearchBar({searchTerm , setSearchTerm, searchBy, setSearchBy}) {
     </div>
   );
 }
- export default SearchBar;
+export default SearchBar;
