@@ -6,10 +6,9 @@ import '../css/Lista.css'; // Importa el CSS para la Lista
 function Lista({ productos,
    searchTerm,
     setProductos,
-     setEditingProduct,
       setNombre, setMarca,
        setPrecioUnitario,
-        setDescuento, setStock }) {
+        setDescuento, setStock,iniciarEdicion }) {
 
   const productosFiltrados = useMemo(() => {
     return productos.length > 0 && productos?.filter((producto) =>
@@ -46,7 +45,7 @@ function Lista({ productos,
               product={producto}
               productos={productos}
               setProductos={setProductos}
-              setEditingProduct={setEditingProduct}
+                    iniciarEdicion={iniciarEdicion}
               setNombre={setNombre}
               setMarca={setMarca}
               setPrecioUnitario={setPrecioUnitario}

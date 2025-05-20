@@ -1,7 +1,18 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import '../css/productForm.css'
 //AGREGAR , MODIFICAR
- function ProductForm({setProductos , productos}) {
+ function ProductForm({
+  setProductos,
+  productos,
+  setEditingProduct,
+  editingProduct,
+  setNombre,
+  setMarca,
+  setPrecioUnitario,
+  setDescuento,
+  setStock,
+}) 
+  {
   const [editingProduct, setEditingProduct] = useState(null);
   const [nombre, setNombre] = useState('');
    const [marca, setMarca] = useState('');
@@ -79,15 +90,15 @@ import '../css/productForm.css'
   }, [nombre, marca, precioUnitario, descuento, stock, calcularPrecioConDescuento, setProductos]);
 
 //
-// //SE EJECUTA AL hacer CLICK en el botón "Editar" de un producto específico en la lista de productos.
-//   const iniciarEdicion = useCallback((producto) => {
-//     setEditingProduct(producto);
-//     setDescripcion(producto.descripcion);
-//     setPrecioUnitario(producto.precioUnitario);
-//     setDescuento(producto.descuento);
-//     setStock(producto.stock);
+//SE EJECUTA AL hacer CLICK en el botón "Editar" de un producto específico en la lista de productos.
+  // const iniciarEdicion = useCallback((producto) => {
+  //   setEditingProduct(producto);
+  //   setDescripcion(producto.descripcion);
+  //   setPrecioUnitario(producto.precioUnitario);
+  //   setDescuento(producto.descuento);
+  //   setStock(producto.stock);
     
-//   }, []);
+  // }, []);
 
 
   //GUARDA LA EDICION
