@@ -23,27 +23,9 @@ function Producto() {
     setProductos([...productos, newProductWithId]);
   };
 
-    const iniciarEdicion = (producto) => {
-    setEditingProduct(producto);
-    setNombre(producto.nombre);
-    setMarca(producto.marca);
-    setPrecioUnitario(producto.precioUnitario);
-    setDescuento(producto.descuento);
-    setStock(producto.stock);
-  };
   return (
     <div className="container">
-      <ProductForm
-  setProductos={handleAddProduct}
-  productos={productos}
-  setEditingProduct={setEditingProduct}
-  editingProduct={editingProduct}
-  setNombre={setNombre}
-  setMarca={setMarca}
-  setPrecioUnitario={setPrecioUnitario}
-  setDescuento={setDescuento}
-  setStock={setStock}
-/>
+      <ProductForm setProductos={handleAddProduct} productos={productos} />
       <SearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -60,7 +42,6 @@ function Producto() {
         setPrecioUnitario={setPrecioUnitario}
         setDescuento={setDescuento}
         setStock={setStock}
-         iniciarEdicion={iniciarEdicion} 
       />
     </div>
   );
