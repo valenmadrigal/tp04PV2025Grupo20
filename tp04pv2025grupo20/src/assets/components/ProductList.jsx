@@ -1,20 +1,25 @@
-import React, { useMemo,useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import ProductItem from './ProducItem';
 import '../css/Lista.css'; // Importa el CSS para la Lista
 
 // LISTA DE PRODUCTOS
 function Lista({ productos,
-   searchTerm,
-    setProductos,
-     setEditingProduct,
-      setNombre, setMarca,
-       setPrecioUnitario,
-        setDescuento, setStock }) {
-
+  searchTerm,
+  setProductos,
+  searchBy
+}) {
+  
   const productosFiltrados = useMemo(() => {
-    return productos.length > 0 && productos?.filter((producto) =>
-      producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    if (searchBy == "nombre") {
+      return productos.length > 0 && productos?.filter((producto) =>
+        producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    } else {
+      return productos.length > 0 && productos?.filter((producto) =>
+        producto.id == searchTerm
+      );
+    }
+
   }, [productos, searchTerm]);
 
   const productsListable = useMemo(() => {
@@ -29,7 +34,7 @@ function Lista({ productos,
       <table className="product-table">
         <thead>
           <tr>
-             <th>ID</th>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Marca</th>
             <th>Precio</th>
@@ -46,12 +51,7 @@ function Lista({ productos,
               product={producto}
               productos={productos}
               setProductos={setProductos}
-              setEditingProduct={setEditingProduct}
-              setNombre={setNombre}
-              setMarca={setMarca}
-              setPrecioUnitario={setPrecioUnitario}
-              setDescuento={setDescuento}
-              setStock={setStock}
+
             />
           ))}
         </tbody>

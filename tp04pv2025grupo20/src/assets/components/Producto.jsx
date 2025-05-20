@@ -10,13 +10,6 @@ function Producto() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchBy, setSearchBy] = useState("nombre");
 
-  const [editingProduct, setEditingProduct] = useState(null);
-  const [nombre, setNombre] = useState('');
-  const [marca, setMarca] = useState('');
-  const [precioUnitario, setPrecioUnitario] = useState('');
-  const [descuento, setDescuento] = useState('');
-  const [stock, setStock] = useState('');
-  console.log(productos, "productos");
 
   const handleAddProduct = (newProductData) => {
     const newProductWithId = { ...newProductData, id: nextId++, show: true };
@@ -33,15 +26,11 @@ function Producto() {
         setSearchBy={setSearchBy}
       />
       <Lista
+        searchBy={searchBy}
         searchTerm={searchTerm}
         setProductos={setProductos}
         productos={productos}
-        setEditingProduct={setEditingProduct}
-        setNombre={setNombre}
-        setMarca={setMarca}
-        setPrecioUnitario={setPrecioUnitario}
-        setDescuento={setDescuento}
-        setStock={setStock}
+
       />
     </div>
   );
